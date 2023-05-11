@@ -121,7 +121,7 @@ public class Ejercicio1 {
 
     public static List<Person> filterPeopleNotStartingWithA(List<Person> people) {
         return people.stream()
-                .filter(p -> !p.getName().toLowerCase().startsWith("a") )
+                .filter(p -> !p.getName().matches("[aàAÁ].*") )
                 .map(p -> {
                     if (p.getTown().isEmpty()) {
                         p.setTown("unknown");
