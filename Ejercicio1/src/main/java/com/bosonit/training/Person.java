@@ -3,13 +3,13 @@ package com.bosonit.training;
 public class Person {
     private String name;
     private String town;
-    private int age;
+    private String age;
 
     public Person(){
 
     }
 
-    public Person(String name, String town, int age) {
+    public Person(String name, String town, String age) {
         this.name = name;
         this.town = town;
         this.age = age;
@@ -31,17 +31,17 @@ public class Person {
         this.town = town;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
     @Override
     public String toString() {
-        return "Person{ " +
+        return "Person{" +
                 "name= " + name +
                 ", town= " + town +
                 ", age= " + age +
