@@ -10,7 +10,9 @@ import org.springframework.context.annotation.Bean;
 public class Block5CommandLineRunnerApplication{
 
 	public static void main(String[] args) {
-		SpringApplication.run(Block5CommandLineRunnerApplication.class, args);
+		System.setProperty("spring.config.name", "application"); // Configura el nombre del archivo de configuración
+		SpringApplication.run(Block5CommandLineRunnerApplication.class, args
+		);
 	}
 
 }
