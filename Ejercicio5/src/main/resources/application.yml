@@ -1,1 +1,4 @@
 new.property: Hola, soy el valor de 'new.property' en el .yml
+spring:
+  profiles:
+    active: ${profile:local}
