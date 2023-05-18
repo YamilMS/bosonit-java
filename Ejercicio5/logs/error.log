@@ -1,2 +1,4 @@
 2023-05-18 11:53:22,159 [main] ERROR c.b.d.Block5CommandLineRunnerApplication - Esto es un mensaje de error
 2023-05-18 11:53:47,057 [http-nio-8080-exec-1] ERROR com.bosonit.demo.Controler - Mensaje a nivel de ERROR
+2023-05-18 11:56:52,963 [main] ERROR c.b.d.Block5CommandLineRunnerApplication - Esto es un mensaje de error
+2023-05-18 11:57:01,355 [http-nio-8080-exec-2] ERROR com.bosonit.demo.Controler - Mensaje a nivel de ERROR
