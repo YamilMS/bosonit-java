@@ -1,13 +1,12 @@
 package com.example.block6personcontrollers.controllers;
 
+import com.example.block6personcontrollers.model.Ciudad;
 import com.example.block6personcontrollers.model.Persona;
+import com.example.block6personcontrollers.service.CiudadService;
 import com.example.block6personcontrollers.service.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/controlador1")
@@ -19,6 +18,7 @@ public class Controlador1 {
         this.personaService = personaService;
     }
 
+
     @GetMapping("/addPersona")
     public ResponseEntity<Persona> addPersona(
             @RequestHeader("nombre") String nombre,
@@ -27,5 +27,10 @@ public class Controlador1 {
     ) {
         Persona persona = personaService.createPersona(nombre, poblacion, edad);
         return ResponseEntity.ok(persona);
+    }
+
+    @PostMapping("/addCiudad")
+    public void addCiudad(@RequestBody Ciudad ciudad) {
+        CiudadService.agregarCiudad(ciudad);
     }
 }
