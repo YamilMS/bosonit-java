@@ -205,3 +205,4 @@ org.springframework.boot.context.config.InvalidConfigDataPropertyException: Prop
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293)
 	at com.bosonit.demo.Block5CommandLineRunnerApplication.main(Block5CommandLineRunnerApplication.java:22)
 2023-05-18 12:58:26,315 [main] ERROR c.b.d.Block5CommandLineRunnerApplication - Esto es un mensaje de error
+2023-05-18 12:58:56,723 [main] ERROR c.b.d.Block5CommandLineRunnerApplication - Esto es un mensaje de error
