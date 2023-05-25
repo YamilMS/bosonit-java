@@ -3,6 +3,8 @@ package com.example.block7crudvalidation.application;
 import com.example.block7crudvalidation.controller.DTO.input.PersonaInputDto;
 import com.example.block7crudvalidation.controller.DTO.output.PersonaOutputDto;
 import com.example.block7crudvalidation.domain.Persona;
+import com.example.block7crudvalidation.exceptions.EntityNotFoundException;
+import com.example.block7crudvalidation.exceptions.UnprocessableEntityException;
 import com.example.block7crudvalidation.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,9 +22,11 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public PersonaOutputDto findById(int id) throws Exception {
+    public PersonaOutputDto findById(int id) {
         Persona persona = personaRepository.findById(id)
-                .orElseThrow(() -> new Exception("Persona no encontrada"));
+                .orElseThrow(() -> {
+                    throw new EntityNotFoundException("Persona no encontrada");
+                });
         return PersonaMapper.INSTANCE.personaToPersonaOutputDTO(persona);
     }
 
@@ -41,12 +45,12 @@ public class PersonaServiceImpl implements PersonaService{
     }
 
     @Override
-    public PersonaOutputDto save(PersonaInputDto personaInputDTO) throws Exception {
+    public PersonaOutputDto save(PersonaInputDto personaInputDTO){
         if (personaInputDTO.getUsuario() == null) {
-            throw new Exception("Usuario no puede ser nulo");
+            throw new UnprocessableEntityException("Usuario no puede ser nulo");
         }
         if (personaInputDTO.getUsuario().length() > 10) {
-            throw new Exception("Longitud de usuario no puede ser superior a 10 caracteres");
+            throw new UnprocessableEntityException("Longitud de usuario no puede ser superior a 10 caracteres");
         }
         Persona persona = PersonaMapper.INSTANCE.personaInputDTOtoPersona(personaInputDTO);
         Persona savedPersona = personaRepository.save(persona);
