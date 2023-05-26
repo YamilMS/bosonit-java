@@ -27,20 +27,20 @@ public class PersonaServiceImpl implements PersonaService{
                 .orElseThrow(() -> {
                     throw new EntityNotFoundException("Persona no encontrada");
                 });
-        return PersonaMapper.INSTANCE.personaToPersonaOutputDTO(persona);
+        return Mapper.INSTANCE.personaToPersonaOutputDTO(persona);
     }
 
     @Override
     public PersonaOutputDto findByUsuario(String usuario) throws Exception {
         Persona persona = personaRepository.findByUsuario(usuario)
                 .orElseThrow(() -> new Exception("Persona no encontrada"));
-        return PersonaMapper.INSTANCE.personaToPersonaOutputDTO(persona);
+        return Mapper.INSTANCE.personaToPersonaOutputDTO(persona);
     }
 
     @Override
     public List<PersonaOutputDto> findAll() {
         return personaRepository.findAll().stream()
-                .map(PersonaMapper.INSTANCE::personaToPersonaOutputDTO)
+                .map(Mapper.INSTANCE::personaToPersonaOutputDTO)
                 .collect(Collectors.toList());
     }
 
@@ -52,8 +52,8 @@ public class PersonaServiceImpl implements PersonaService{
         if (personaInputDTO.getUsuario().length() > 10) {
             throw new UnprocessableEntityException("Longitud de usuario no puede ser superior a 10 caracteres");
         }
-        Persona persona = PersonaMapper.INSTANCE.personaInputDTOtoPersona(personaInputDTO);
+        Persona persona = Mapper.INSTANCE.personaInputDTOtoPersona(personaInputDTO);
         Persona savedPersona = personaRepository.save(persona);
-        return PersonaMapper.INSTANCE.personaToPersonaOutputDTO(savedPersona);
+        return Mapper.INSTANCE.personaToPersonaOutputDTO(savedPersona);
     }
 }
