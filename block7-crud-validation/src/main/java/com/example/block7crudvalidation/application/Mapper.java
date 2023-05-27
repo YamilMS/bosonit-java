@@ -15,7 +15,7 @@ import com.example.block7crudvalidation.domain.Student;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@org.mapstruct.Mapper
+@org.mapstruct.Mapper(componentModel = "spring")
 public interface Mapper {
 
     Mapper INSTANCE = Mappers.getMapper( Mapper.class );
@@ -27,31 +27,31 @@ public interface Mapper {
     Persona personaInputDTOtoPersona(PersonaInputDto personaInputDTO);
 
     //STUDENT
-    @Mapping(source = "studentId", target = "id")
+    @Mapping(source = "student_id", target = "student_id")
     Student studentToEntity(StudentInputDTO studentInputDTO);
 
-    @Mapping(source = "id", target = "studentId")
+    @Mapping(source = "student_id", target = "student_id")
     StudentOutputDTO StudentToOutputDTO(Student student);
 
-    @Mapping(source = "studentId", target = "id")
-    void studentInputDTOtoStudent(StudentInputDTO studentInputDTO);
+    @Mapping(source = "student_id", target = "student_id")
+    Student studentInputDTOtoStudent(StudentInputDTO studentInputDTO);
 
     //PROFESSOR
-    @Mapping(source = "professorId", target = "id")
+    @Mapping(source = "id_profesor", target = "id_profesor")
     Professor professorToEntity(ProfessorInputDTO professorInputDTO);
-    @Mapping(source = "id", target = "professorId")
+    @Mapping(source = "id_profesor", target = "id_profesor")
     ProfessorOutputDTO profesorToOutputDTO(Professor professor);
 
-    @Mapping(source = "professorId", target = "id")
-    void profesorInputDTOtoProfesor(ProfessorInputDTO professorInputDTOr);
+    @Mapping(source = "id_profesor", target = "id_profesor")
+    Professor profesorInputDTOtoProfesor(ProfessorInputDTO professorInputDTOr);
 
     //ESTUDIANTE_ASIGNATURA
-    @Mapping(source = "id_asignatura", target = "id")
+    @Mapping(source = "id_asignatura", target = "id_asignatura")
     EstudianteAsignatura EAtoEntity(EstudianteAsignaturaInputDTO estudianteAsignaturaInputDTO);
 
-    @Mapping(source = "id", target = "id_asignatura")
+    @Mapping(source = "id_asignatura", target = "id_asignatura")
     EstudianteAsignaturaOutputDTO EAtoOutputDTO(EstudianteAsignatura estudianteAsignatura);
 
-    @Mapping(source = "id_asignatura", target = "id")
-    void EAInputFromDTO(EstudianteAsignaturaInputDTO estudianteAsignaturaInputDTO);
+    @Mapping(source = "id_asignatura", target = "id_asignatura")
+    EstudianteAsignatura EAInputFromDTO(EstudianteAsignaturaInputDTO estudianteAsignaturaInputDTO);
 }

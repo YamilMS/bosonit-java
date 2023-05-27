@@ -15,7 +15,7 @@ import java.util.Date;
 public class EstudianteAsignatura {
     @Id
     @GeneratedValue
-    private String id_asignatura;
+    private int id_asignatura;
 
     @ManyToOne
     @JoinColumn(name = "id_student")

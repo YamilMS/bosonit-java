@@ -15,7 +15,7 @@ import java.util.List;
 public class Student {
     @Id
     @GeneratedValue
-    private String id_student;
+    private int student_id;
 
     @OneToOne
     @JoinColumn(name = "id_persona")
