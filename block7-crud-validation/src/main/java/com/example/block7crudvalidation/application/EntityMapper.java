@@ -25,27 +25,24 @@ public interface EntityMapper {
     PersonaOutputDto toPersonaDTO(Persona entity);
 
     // Student
-    @Mapping(target = "persona", source = "dto.persona")
+    @Mapping(target = "persona.id_persona", source = "dto.personaId")
+    @Mapping(target = "professor.id_profesor", source = "dto.professorId")
     @Mapping(target = "asignaturas", ignore = true)
     Student toStudentEntity(StudentInputDTO dto);
-
-    void updatePersonaFromDto(@MappingTarget Persona entity, PersonaInputDto dto);
-
     @Mapping(target = "persona", source = "entity.persona")
+    @Mapping(target = "professor", source = "entity.professor")
     @Mapping(target = "asignaturas", ignore = true)
     StudentOutputDTO toStudentDTO(Student entity);
-
-    @Mapping(target = "persona", source = "dto.persona")
+    @Mapping(target = "persona.id_persona", source = "dto.personaId")
+    @Mapping(target = "professor.id_profesor", source = "dto.professorId")
     void updateStudentFromDto(@MappingTarget Student entity, StudentInputDTO dto);
 
     // Professor
-    @Mapping(target = "persona", source = "dto.persona")
-    @Mapping(target = "students", ignore = true)
+    @Mapping(target = "persona", ignore = true)
     Professor toProfessorEntity(ProfessorInputDTO dto);
-
     @Mapping(target = "persona", source = "entity.persona")
-    @Mapping(target = "studentIds", ignore = true)
     ProfessorOutputDTO toProfessorDTO(Professor entity);
+
 
     // EstudianteAsignatura
     @Mapping(target = "student.student_id", source = "dto.studentId")

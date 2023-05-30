@@ -25,8 +25,8 @@ public class Student {
     private String coments;
 
     @ManyToOne
-    @JoinColumn(name = "id_profesor")
-    private Professor profesor;
+    @JoinColumn(name = "id_professor")
+    private Professor professor;
 
     private String branch;
 

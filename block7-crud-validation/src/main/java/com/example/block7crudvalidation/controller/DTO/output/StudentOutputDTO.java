@@ -1,7 +1,5 @@
 package com.example.block7crudvalidation.controller.DTO.output;
 
-import com.example.block7crudvalidation.domain.Persona;
-import com.example.block7crudvalidation.domain.Professor;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

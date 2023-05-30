@@ -10,10 +10,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfessorOutputDTO {
-    private int id_profesor;
+    private Integer id_profesor;
     private PersonaOutputDto persona;
     private String comments;
     private String branch;
-    private List<Integer> studentIds;
 }
 

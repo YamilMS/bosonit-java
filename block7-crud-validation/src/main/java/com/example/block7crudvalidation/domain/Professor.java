@@ -24,6 +24,4 @@ public class Professor {
     private String coments;
     private String branch;
 
-    @OneToMany(mappedBy = "profesor")
-    private List<Student> students;
 }
