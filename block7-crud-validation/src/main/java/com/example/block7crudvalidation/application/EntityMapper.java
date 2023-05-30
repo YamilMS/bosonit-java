@@ -11,6 +11,7 @@ import com.example.block7crudvalidation.domain.Professor;
 import com.example.block7crudvalidation.domain.Student;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
@@ -28,9 +29,14 @@ public interface EntityMapper {
     @Mapping(target = "asignaturas", ignore = true)
     Student toStudentEntity(StudentInputDTO dto);
 
+    void updatePersonaFromDto(@MappingTarget Persona entity, PersonaInputDto dto);
+
     @Mapping(target = "persona", source = "entity.persona")
     @Mapping(target = "asignaturas", ignore = true)
     StudentOutputDTO toStudentDTO(Student entity);
+
+    @Mapping(target = "persona", source = "dto.persona")
+    void updateStudentFromDto(@MappingTarget Student entity, StudentInputDTO dto);
 
     // Professor
     @Mapping(target = "persona", source = "dto.persona")
