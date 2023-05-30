@@ -21,7 +21,7 @@ public class ProfessorController {
     }
 
     @GetMapping("/{id}")
-    public ProfessorOutputDTO getProfessorById(@PathVariable String id) {
+    public ProfessorOutputDTO getProfessorById(@PathVariable int id) {
         return professorService.findById(id);
     }
 
@@ -31,7 +31,7 @@ public class ProfessorController {
     }
 
     @PutMapping("/{id}")
-    public ProfessorOutputDTO updateProfessor(@PathVariable String id, @RequestBody ProfessorInputDTO professorInputDTO) {
+    public ProfessorOutputDTO updateProfessor(@PathVariable int id, @RequestBody ProfessorInputDTO professorInputDTO) {
         return professorService.update(id, professorInputDTO);
     }
 

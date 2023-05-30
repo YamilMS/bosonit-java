@@ -9,10 +9,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EstudianteAsignaturaInputDTO {
-    private int id_asignatura;
-    private int id_student;
+    private int studentId;
     private String asignatura;
-    private String coments;
+    private String comments;
     private Date initial_date;
     private Date finish_date;
 }
+

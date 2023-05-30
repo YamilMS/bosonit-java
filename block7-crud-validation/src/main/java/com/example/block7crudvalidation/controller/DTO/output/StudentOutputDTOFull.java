@@ -4,16 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProfessorOutputDTO {
-    private int id_profesor;
+public class StudentOutputDTOFull extends StudentOutputDTO {
     private PersonaOutputDto persona;
-    private String comments;
-    private String branch;
-    private List<Integer> studentIds;
 }
-

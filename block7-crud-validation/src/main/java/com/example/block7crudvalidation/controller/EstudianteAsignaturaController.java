@@ -21,7 +21,7 @@ public class EstudianteAsignaturaController {
     }
 
     @GetMapping("/{id}")
-    public EstudianteAsignaturaOutputDTO getEstudianteAsignaturaById(@PathVariable String id) {
+    public EstudianteAsignaturaOutputDTO getEstudianteAsignaturaById(@PathVariable int id) {
         return estudianteAsignaturaService.findById(id);
     }
 
@@ -31,7 +31,7 @@ public class EstudianteAsignaturaController {
     }
 
     @PutMapping("/{id}")
-    public EstudianteAsignaturaOutputDTO updateEstudianteAsignatura(@PathVariable String id, @RequestBody EstudianteAsignaturaInputDTO estudianteAsignaturaInputDTO) {
+    public EstudianteAsignaturaOutputDTO updateEstudianteAsignatura(@PathVariable int id, @RequestBody EstudianteAsignaturaInputDTO estudianteAsignaturaInputDTO) {
         return estudianteAsignaturaService.update(id, estudianteAsignaturaInputDTO);
     }
 

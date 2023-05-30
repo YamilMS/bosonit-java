@@ -50,14 +50,4 @@ public class Persona {
     @Column
     private Date termination_date;
 
-    public void validate() throws Exception {
-        if (usuario == null) {
-            throw new Exception("Usuario no puede ser nulo");
-        }
-        if (usuario.length() > 10) {
-            throw new Exception("Longitud de usuario no puede ser superior a 10 caracteres");
-        }
-        // Add more validation logic as needed
-    }
-
 }

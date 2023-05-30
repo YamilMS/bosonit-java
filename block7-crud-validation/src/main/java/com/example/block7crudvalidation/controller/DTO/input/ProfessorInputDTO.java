@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProfessorInputDTO {
-    private int id_persona;
-    private int id_profesor;
-    private String coments;
+    private PersonaInputDto persona;
+    private String comments;
     private String branch;
+    private List<Integer> studentIds;
 }

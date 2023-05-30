@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ProfessorService {
     List<ProfessorOutputDTO> findAll();
-    ProfessorOutputDTO findById(String id);
+    ProfessorOutputDTO findById(int id);
     ProfessorOutputDTO save(ProfessorInputDTO professorInputDTO);
-    ProfessorOutputDTO update(String id, ProfessorInputDTO professorInputDTO);
+    ProfessorOutputDTO update(int id, ProfessorInputDTO professorInputDTO);
     void delete(int id);
 }
 

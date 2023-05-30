@@ -7,9 +7,10 @@ import java.util.List;
 
 public interface EstudianteAsignaturaService {
     List<EstudianteAsignaturaOutputDTO> findAll();
-    EstudianteAsignaturaOutputDTO findById(String id);
+    EstudianteAsignaturaOutputDTO findById(int id);
     EstudianteAsignaturaOutputDTO save(EstudianteAsignaturaInputDTO estudianteAsignaturaInputDTO);
-    EstudianteAsignaturaOutputDTO update(String id, EstudianteAsignaturaInputDTO estudianteAsignaturaInputDTO);
+    EstudianteAsignaturaOutputDTO update(int id, EstudianteAsignaturaInputDTO estudianteAsignaturaInputDTO);
+
     void delete(int id);
 }
 

@@ -23,3 +23,4 @@ public class PersonaOutputDto {
     private String imagen_url;
     private Date termination_date;
 }
+

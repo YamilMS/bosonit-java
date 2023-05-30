@@ -13,46 +13,52 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProfessorServiceImpl implements ProfessorService {
-
     @Autowired
-    private ProfessorRepository professorRepository;
-
+    private  ProfessorRepository professorRepository;
     @Autowired
-    private Mapper professorMapper;
+    private EntityMapper entityMapper;
+
+    public ProfessorServiceImpl(ProfessorRepository professorRepository, EntityMapper entityMapper) {
+        this.professorRepository = professorRepository;
+        this.entityMapper = entityMapper;
+    }
 
     @Override
     public List<ProfessorOutputDTO> findAll() {
-        return professorRepository.findAll().stream()
-                .map(professorMapper::profesorToOutputDTO)
+        List<Professor> professors = professorRepository.findAll();
+        return professors.stream()
+                .map(entityMapper::toProfessorDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ProfessorOutputDTO findById(String id) {
-        Professor professor = professorRepository.findById(Integer.valueOf(id))
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró al profesor con el id: " + id));
-        return professorMapper.profesorToOutputDTO(professor);
+    public ProfessorOutputDTO findById(int id) {
+        Professor professor = professorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Professor not found with ID: " + id));
+        return entityMapper.toProfessorDTO(professor);
     }
 
     @Override
     public ProfessorOutputDTO save(ProfessorInputDTO professorInputDTO) {
-        Professor professor = professorMapper.professorToEntity(professorInputDTO);
-        return professorMapper.profesorToOutputDTO(professorRepository.save(professor));
+        Professor professor = entityMapper.toProfessorEntity(professorInputDTO);
+        professor = professorRepository.save(professor);
+        return entityMapper.toProfessorDTO(professor);
     }
 
     @Override
-    public ProfessorOutputDTO update(String id, ProfessorInputDTO professorInputDTO) {
-        Professor existingProfessor = professorRepository.findById(Integer.valueOf(id))
-                .orElseThrow(() -> new EntityNotFoundException("No se encontró al profesor con el id: " + id));
-        professorMapper.profesorInputDTOtoProfesor(professorInputDTO);
-        return professorMapper.profesorToOutputDTO(professorRepository.save(existingProfessor));
+    public ProfessorOutputDTO update(int id, ProfessorInputDTO professorInputDTO) {
+        Professor professor = professorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Professor not found with ID: " + id));
+
+        // Update professor fields based on professorInputDTO
+        // ...
+
+        professor = professorRepository.save(professor);
+        return entityMapper.toProfessorDTO(professor);
     }
 
     @Override
     public void delete(int id) {
-        if (!professorRepository.existsById(id)) {
-            throw new EntityNotFoundException("No se encontró al profesor con el id: " + id);
-        }
         professorRepository.deleteById(id);
     }
 }

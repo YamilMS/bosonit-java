@@ -1,5 +1,6 @@
 package com.example.block7crudvalidation.controller.DTO.input;
 
+import com.example.block7crudvalidation.domain.Persona;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PersonaInputDto {
-    private int id_persona;
     private String usuario;
     private String password;
     private String name;

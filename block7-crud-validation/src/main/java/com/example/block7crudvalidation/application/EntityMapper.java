@@ -11,10 +11,11 @@ import com.example.block7crudvalidation.domain.Professor;
 import com.example.block7crudvalidation.domain.Student;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface EntityMappers {
-    EntityMappers INSTANCE = Mapper.getMapper(EntityMapper.class);
+public interface EntityMapper {
+    EntityMapper INSTANCE = Mappers.getMapper(EntityMapper.class);
 
     // Persona
     @Mapping(target = "id_persona", ignore = true)
@@ -37,11 +38,11 @@ public interface EntityMappers {
     Professor toProfessorEntity(ProfessorInputDTO dto);
 
     @Mapping(target = "persona", source = "entity.persona")
-    @Mapping(target = "students", ignore = true)
+    @Mapping(target = "studentIds", ignore = true)
     ProfessorOutputDTO toProfessorDTO(Professor entity);
 
     // EstudianteAsignatura
-    @Mapping(target = "student", source = "dto.studentId")
+    @Mapping(target = "student.student_id", source = "dto.studentId")
     EstudianteAsignatura toEstudianteAsignaturaEntity(EstudianteAsignaturaInputDTO dto);
 
     @Mapping(target = "studentId", source = "entity.student.student_id")

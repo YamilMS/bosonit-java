@@ -21,7 +21,10 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public StudentOutputDTO getStudentById(@PathVariable String id) {
+    public StudentOutputDTO getStudentById(@PathVariable int id,  @RequestParam(defaultValue = "simple") String outputType) {
+//        if (outputType.equals("full")) {
+//            return studentService.findByIdFull(id);
+//        }
         return studentService.findById(id);
     }
 
@@ -31,7 +34,7 @@ public class StudentController {
     }
 
     @PutMapping("/{id}")
-    public StudentOutputDTO updateStudent(@PathVariable String id, @RequestBody StudentInputDTO studentInputDTO) {
+    public StudentOutputDTO updateStudent(@PathVariable int id, @RequestBody StudentInputDTO studentInputDTO) {
         return studentService.update(id, studentInputDTO);
     }
 

@@ -14,46 +14,42 @@ import java.util.stream.Collectors;
 
 @Service
 public class PersonaServiceImpl implements PersonaService{
-    private final PersonaRepository personaRepository;
-
     @Autowired
-    public PersonaServiceImpl(PersonaRepository personaRepository) {
+    private PersonaRepository personaRepository;
+    @Autowired
+    private EntityMapper entityMapper;
+
+    public PersonaServiceImpl(PersonaRepository personaRepository, EntityMapper entityMapper) {
         this.personaRepository = personaRepository;
+        this.entityMapper = entityMapper;
     }
 
     @Override
-    public PersonaOutputDto findById(int id) {
+    public PersonaOutputDto findById(int id) throws Exception {
         Persona persona = personaRepository.findById(id)
-                .orElseThrow(() -> {
-                    throw new EntityNotFoundException("Persona no encontrada");
-                });
-        return Mapper.INSTANCE.personaToPersonaOutputDTO(persona);
+                .orElseThrow(() -> new Exception("Persona not found with ID: " + id));
+        return entityMapper.toPersonaDTO(persona);
     }
 
     @Override
     public PersonaOutputDto findByUsuario(String usuario) throws Exception {
         Persona persona = personaRepository.findByUsuario(usuario)
-                .orElseThrow(() -> new Exception("Persona no encontrada"));
-        return Mapper.INSTANCE.personaToPersonaOutputDTO(persona);
+                .orElseThrow(() -> new Exception("Persona not found with usuario: " + usuario));
+        return entityMapper.toPersonaDTO(persona);
     }
 
     @Override
     public List<PersonaOutputDto> findAll() {
-        return personaRepository.findAll().stream()
-                .map(Mapper.INSTANCE::personaToPersonaOutputDTO)
+        List<Persona> personas = personaRepository.findAll();
+        return personas.stream()
+                .map(entityMapper::toPersonaDTO)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public PersonaOutputDto save(PersonaInputDto personaInputDTO){
-        if (personaInputDTO.getUsuario() == null) {
-            throw new UnprocessableEntityException("Usuario no puede ser nulo");
-        }
-        if (personaInputDTO.getUsuario().length() > 10) {
-            throw new UnprocessableEntityException("Longitud de usuario no puede ser superior a 10 caracteres");
-        }
-        Persona persona = Mapper.INSTANCE.personaInputDTOtoPersona(personaInputDTO);
-        Persona savedPersona = personaRepository.save(persona);
-        return Mapper.INSTANCE.personaToPersonaOutputDTO(savedPersona);
+    public PersonaOutputDto save(PersonaInputDto personaInputDTO) throws Exception {
+        Persona persona = entityMapper.toPersonaEntity(personaInputDTO);
+        persona = personaRepository.save(persona);
+        return entityMapper.toPersonaDTO(persona);
     }
 }
