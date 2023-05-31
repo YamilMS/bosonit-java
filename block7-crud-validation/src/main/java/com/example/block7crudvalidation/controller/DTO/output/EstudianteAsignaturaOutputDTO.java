@@ -4,16 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class EstudianteAsignaturaOutputDTO {
-    private int id_asignatura;
     private int studentId;
+    private StudentOutputDTO student;
     private String asignatura;
-    private String comments;
-    private Date initial_date;
-    private Date finish_date;
+    private String coments;
+    private LocalDate initial_date;
+    private LocalDate finish_date;
 }
 

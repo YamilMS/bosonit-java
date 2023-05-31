@@ -11,6 +11,6 @@ import java.util.List;
 @AllArgsConstructor
 public class ProfessorInputDTO {
     private int personaId;
-    private String comments;
+    private String coments;
     private String branch;
 }

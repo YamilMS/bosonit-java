@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,6 +31,6 @@ public class Student {
 
     private String branch;
 
-    @OneToMany(mappedBy = "student")
-    private List<EstudianteAsignatura> asignaturas;
+    @ManyToMany(mappedBy = "students")
+    private List<EstudianteAsignatura> asignaturas= new ArrayList<>();
 }

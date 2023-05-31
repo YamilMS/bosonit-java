@@ -12,7 +12,7 @@ import java.util.List;
 public class ProfessorOutputDTO {
     private Integer id_profesor;
     private PersonaOutputDto persona;
-    private String comments;
+    private String coments;
     private String branch;
 }
 

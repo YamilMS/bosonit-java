@@ -3,11 +3,16 @@ package com.example.block7crudvalidation.application;
 import com.example.block7crudvalidation.controller.DTO.input.EstudianteAsignaturaInputDTO;
 import com.example.block7crudvalidation.controller.DTO.output.EstudianteAsignaturaOutputDTO;
 import com.example.block7crudvalidation.domain.EstudianteAsignatura;
+import com.example.block7crudvalidation.domain.Persona;
+import com.example.block7crudvalidation.domain.Student;
 import com.example.block7crudvalidation.exceptions.EntityNotFoundException;
 import com.example.block7crudvalidation.repository.EstudianteAsignaturaRepository;
+import com.example.block7crudvalidation.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +20,8 @@ import java.util.stream.Collectors;
 public class EstudianteAsignaturaServiceImpl implements EstudianteAsignaturaService{
     @Autowired
     private EstudianteAsignaturaRepository estudianteAsignaturaRepository;
+    @Autowired
+    private StudentRepository studentRepository;
     @Autowired
     private EntityMapper entityMapper;
 
@@ -40,21 +47,40 @@ public class EstudianteAsignaturaServiceImpl implements EstudianteAsignaturaServ
 
     @Override
     public EstudianteAsignaturaOutputDTO save(EstudianteAsignaturaInputDTO estudianteAsignaturaInputDTO) {
-        EstudianteAsignatura asignatura = entityMapper.toEstudianteAsignaturaEntity(estudianteAsignaturaInputDTO);
-        asignatura = estudianteAsignaturaRepository.save(asignatura);
-        return entityMapper.toEstudianteAsignaturaDTO(asignatura);
+        Student student = studentRepository.findById(estudianteAsignaturaInputDTO.getStudentId())
+                .orElseThrow(() -> new RuntimeException("Student not found with ID: " + estudianteAsignaturaInputDTO.getStudentId()));
+
+        EstudianteAsignatura estudianteAsignatura = entityMapper.toEstudianteAsignaturaEntity(estudianteAsignaturaInputDTO);
+
+        estudianteAsignatura.getStudents().add(student);
+        estudianteAsignatura.setInitial_date(LocalDate.from(LocalDateTime.now()));
+        student.getAsignaturas().add(estudianteAsignatura);
+        estudianteAsignatura.setFinish_date(LocalDate.from((LocalDateTime.now().plusMonths(6))));
+        estudianteAsignatura = estudianteAsignaturaRepository.save(estudianteAsignatura);
+
+        return entityMapper.toEstudianteAsignaturaDTO(estudianteAsignatura);
     }
+
 
     @Override
     public EstudianteAsignaturaOutputDTO update(int id, EstudianteAsignaturaInputDTO estudianteAsignaturaInputDTO) {
-        EstudianteAsignatura asignatura = estudianteAsignaturaRepository.findById(id)
+
+        EstudianteAsignatura estudianteAsignatura = estudianteAsignaturaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("EstudianteAsignatura not found with ID: " + id));
 
-        // Update asignatura fields based on estudianteAsignaturaInputDTO
-        // ...
+        Student student = studentRepository.findById(estudianteAsignaturaInputDTO.getStudentId())
+                .orElseThrow(() -> new RuntimeException("Student not found with ID: " + estudianteAsignaturaInputDTO.getStudentId()));
 
-        asignatura = estudianteAsignaturaRepository.save(asignatura);
-        return entityMapper.toEstudianteAsignaturaDTO(asignatura);
+        if (!estudianteAsignatura.getStudents().contains(student)) {
+            estudianteAsignatura.getStudents().add(student);
+            student.getAsignaturas().add(estudianteAsignatura);
+        }
+
+        entityMapper.updateEstudianteAsignaturaFromDto(estudianteAsignatura, estudianteAsignaturaInputDTO);
+
+        estudianteAsignatura = estudianteAsignaturaRepository.save(estudianteAsignatura);
+
+        return entityMapper.toEstudianteAsignaturaDTO(estudianteAsignatura);
     }
 
     @Override

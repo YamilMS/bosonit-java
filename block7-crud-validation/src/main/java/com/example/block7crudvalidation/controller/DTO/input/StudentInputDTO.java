@@ -15,6 +15,6 @@ public class StudentInputDTO {
     private String coments;
     private int professorId;
     private String branch;
-    private List<EstudianteAsignaturaInputDTO> asignaturas;
+    private List<Integer> asignaturasId;
 }
 

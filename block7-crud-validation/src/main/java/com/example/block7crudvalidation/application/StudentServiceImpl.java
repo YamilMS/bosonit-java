@@ -2,9 +2,11 @@ package com.example.block7crudvalidation.application;
 
 import com.example.block7crudvalidation.controller.DTO.input.StudentInputDTO;
 import com.example.block7crudvalidation.controller.DTO.output.StudentOutputDTO;
+import com.example.block7crudvalidation.domain.EstudianteAsignatura;
 import com.example.block7crudvalidation.domain.Persona;
 import com.example.block7crudvalidation.domain.Professor;
 import com.example.block7crudvalidation.domain.Student;
+import com.example.block7crudvalidation.repository.EstudianteAsignaturaRepository;
 import com.example.block7crudvalidation.repository.PersonaRepository;
 import com.example.block7crudvalidation.repository.ProfessorRepository;
 import com.example.block7crudvalidation.repository.StudentRepository;
@@ -23,6 +25,8 @@ public class StudentServiceImpl implements StudentService {
     private PersonaRepository personaRepository;
     @Autowired
     private ProfessorRepository professorRepository;
+    @Autowired
+    private EstudianteAsignaturaRepository estudianteAsignaturaRepository;
     @Autowired
     private final EntityMapper entityMapper;
 
@@ -55,6 +59,10 @@ public class StudentServiceImpl implements StudentService {
 
         Professor professor = professorRepository.findById(studentInputDTO.getProfessorId())
                 .orElseThrow(() -> new RuntimeException("Professor not found with ID: " + studentInputDTO.getProfessorId()));
+        if(studentInputDTO.getAsignaturasId() != null && !studentInputDTO.getAsignaturasId().isEmpty()) {
+            List<EstudianteAsignatura> asignaturas = estudianteAsignaturaRepository.findAllById(studentInputDTO.getAsignaturasId());
+            student.setAsignaturas(asignaturas);
+        }
 
         student.setPersona(persona);
         student.setProfessor(professor);

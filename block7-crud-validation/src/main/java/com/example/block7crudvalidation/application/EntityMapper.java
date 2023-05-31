@@ -31,7 +31,7 @@ public interface EntityMapper {
     Student toStudentEntity(StudentInputDTO dto);
     @Mapping(target = "persona", source = "entity.persona")
     @Mapping(target = "professor", source = "entity.professor")
-    @Mapping(target = "asignaturas", ignore = true)
+    @Mapping(target = "asignaturas", source = "entity.asignaturas")
     StudentOutputDTO toStudentDTO(Student entity);
     @Mapping(target = "persona.id_persona", source = "dto.personaId")
     @Mapping(target = "professor.id_profesor", source = "dto.professorId")
@@ -45,10 +45,12 @@ public interface EntityMapper {
 
 
     // EstudianteAsignatura
-    @Mapping(target = "student.student_id", source = "dto.studentId")
+    @Mapping(target = "students", ignore = true)
     EstudianteAsignatura toEstudianteAsignaturaEntity(EstudianteAsignaturaInputDTO dto);
 
-    @Mapping(target = "studentId", source = "entity.student.student_id")
+    @Mapping(target = "studentId", expression = "java(entity.getStudents().get(0).getStudent_id())")
     EstudianteAsignaturaOutputDTO toEstudianteAsignaturaDTO(EstudianteAsignatura entity);
 
+    @Mapping(target = "students", ignore = true)
+    void updateEstudianteAsignaturaFromDto(@MappingTarget EstudianteAsignatura entity, EstudianteAsignaturaInputDTO dto);
 }
