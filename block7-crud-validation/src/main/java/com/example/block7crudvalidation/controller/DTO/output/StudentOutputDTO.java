@@ -15,6 +15,5 @@ public class StudentOutputDTO {
     private int num_hours_week;
     private String coments;
     private ProfessorOutputDTO professor;
-    private String branch;
     private List<EstudianteAsignaturaOutputDTO> asignaturas;
 }

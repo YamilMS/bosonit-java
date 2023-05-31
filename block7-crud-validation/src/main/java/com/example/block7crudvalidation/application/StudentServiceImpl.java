@@ -2,6 +2,7 @@ package com.example.block7crudvalidation.application;
 
 import com.example.block7crudvalidation.controller.DTO.input.StudentInputDTO;
 import com.example.block7crudvalidation.controller.DTO.output.StudentOutputDTO;
+import com.example.block7crudvalidation.controller.DTO.output.StudentOutputDTOFull;
 import com.example.block7crudvalidation.domain.EstudianteAsignatura;
 import com.example.block7crudvalidation.domain.Persona;
 import com.example.block7crudvalidation.domain.Professor;
@@ -48,6 +49,12 @@ public class StudentServiceImpl implements StudentService {
         Student student = studentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Student not found with ID: " + id));
         return entityMapper.toStudentDTO(student);
+    }
+    @Override
+    public StudentOutputDTOFull findByIdFull(int id) {
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found with ID: " + id));
+        return entityMapper.toStudentDTOFull(student);
     }
 
     @Override

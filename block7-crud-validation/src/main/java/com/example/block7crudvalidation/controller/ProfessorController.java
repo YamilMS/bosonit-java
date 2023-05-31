@@ -1,5 +1,6 @@
 package com.example.block7crudvalidation.controller;
 
+import com.example.block7crudvalidation.application.Feign;
 import com.example.block7crudvalidation.application.ProfessorService;
 import com.example.block7crudvalidation.controller.DTO.input.ProfessorInputDTO;
 import com.example.block7crudvalidation.controller.DTO.output.ProfessorOutputDTO;
@@ -14,6 +15,18 @@ public class ProfessorController {
 
     @Autowired
     private ProfessorService professorService;
+    @Autowired
+    private Feign feign;
+
+    @Autowired
+    public ProfessorController(Feign profesorClient) {
+        this.feign = profesorClient;
+    }
+
+    @GetMapping("/persona/profesor/{id}")
+    public ProfessorOutputDTO getProfesor(@PathVariable int id) {
+        return feign.getProfesor(id);
+    }
 
     @GetMapping
     public List<ProfessorOutputDTO> getAllProfessors() {

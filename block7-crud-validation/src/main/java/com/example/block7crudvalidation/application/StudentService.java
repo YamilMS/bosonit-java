@@ -9,7 +9,7 @@ import java.util.List;
 public interface StudentService {
     List<StudentOutputDTO> findAll();
     StudentOutputDTO findById(int id);
-    //StudentOutputDTOFull findByIdFull(int id);
+    StudentOutputDTO findByIdFull(int id);
     StudentOutputDTO save(StudentInputDTO studentInputDTO);
     StudentOutputDTO update(int id, StudentInputDTO studentInputDTO);
     void delete(int id);

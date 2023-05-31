@@ -33,6 +33,11 @@ public interface EntityMapper {
     @Mapping(target = "professor", source = "entity.professor")
     @Mapping(target = "asignaturas", source = "entity.asignaturas")
     StudentOutputDTO toStudentDTO(Student entity);
+
+    @Mapping(target = "persona", source = "entity.persona")
+    @Mapping(target = "professor", source = "entity.professor")
+    @Mapping(target = "asignaturas", source = "entity.asignaturas")
+    StudentOutputDTOFull toStudentDTOFull(Student entity);
     @Mapping(target = "persona.id_persona", source = "dto.personaId")
     @Mapping(target = "professor.id_profesor", source = "dto.professorId")
     void updateStudentFromDto(@MappingTarget Student entity, StudentInputDTO dto);

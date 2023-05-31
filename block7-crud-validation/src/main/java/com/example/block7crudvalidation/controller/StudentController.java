@@ -22,9 +22,9 @@ public class StudentController {
 
     @GetMapping("/{id}")
     public StudentOutputDTO getStudentById(@PathVariable int id,  @RequestParam(defaultValue = "simple") String outputType) {
-//        if (outputType.equals("full")) {
-//            return studentService.findByIdFull(id);
-//        }
+        if ("full".equals(outputType)) {
+            return studentService.findByIdFull(id);
+        }
         return studentService.findById(id);
     }
 
