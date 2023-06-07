@@ -14,4 +14,9 @@ public interface PersonaService {
     List<PersonaOutputDto> findAll();
 
     PersonaOutputDto save(PersonaInputDto personaInputDTO) throws Exception;
+
+    //PARTE DE CORS
+    void addPerson(PersonaInputDto person);
+
+    List<PersonaOutputDto> getAllPersons();
 }

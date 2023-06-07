@@ -12,34 +12,13 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/personas")
-public class PersonaController {
+public class PersonaCORSController {
 
     private final PersonaService personaService;
 
     @Autowired
-    public PersonaController(PersonaService personaService) {
+    public PersonaCORSController(PersonaService personaService) {
         this.personaService = personaService;
-    }
-
-    @GetMapping("/{id}")
-    public PersonaOutputDto getPersonaById(@PathVariable int id) throws Exception {
-        return personaService.findById(id);
-    }
-
-    @GetMapping("/usuario/{usuario}")
-    public PersonaOutputDto getPersonaByUsername(@PathVariable String usuario) throws Exception {
-        return personaService.findByUsuario(usuario);
-    }
-
-    @GetMapping
-    public List<PersonaOutputDto> getAllPersonas() {
-        return personaService.findAll();
-    }
-
-    @PostMapping
-    public PersonaOutputDto createPersona(@RequestBody PersonaInputDto personaInputDto) throws Exception {
-        return personaService.save(personaInputDto);
     }
 
     //PARTE DE CORS

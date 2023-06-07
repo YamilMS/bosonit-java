@@ -52,4 +52,19 @@ public class PersonaServiceImpl implements PersonaService{
         persona = personaRepository.save(persona);
         return entityMapper.toPersonaDTO(persona);
     }
+
+    //PARTE DE CORS
+    @Override
+    public void addPerson(PersonaInputDto personaInputDto) {
+        Persona person = entityMapper.toPersonaEntity(personaInputDto);
+        personaRepository.save(person);
+    }
+
+    @Override
+    public List<PersonaOutputDto> getAllPersons() {
+        List<Persona> personas = personaRepository.findAll();
+        return personas.stream()
+                .map(entityMapper::toPersonaDTO)
+                .collect(Collectors.toList());
+    }
 }
