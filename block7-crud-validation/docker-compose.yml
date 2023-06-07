@@ -1,7 +1,7 @@
 services:
 
   postgres_db:
-    container_name: postgres_test
+    container_name: postgres_test_compose
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=contrasena
@@ -9,6 +9,19 @@ services:
     image: postgres
     ports:
       - "5432:5432"
+    networks:
+      - mynetwork2
+
+  spingboot:
+    container_name: ejercicio10_compose
+    environment:
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=contrasena
+      - DATABASE_URL=jdbc:postgresql://postgres_test:5432/test
+    image: ejercicio10_c
+    build: .
+    ports:
+      - "8080:8080"
     networks:
       - mynetwork2
 
