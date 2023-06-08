@@ -8,6 +8,7 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -22,7 +23,7 @@ public class FicheroServiceImpl implements FicheroService {
 
     private final FicheroRepository ficheroRepository;
 
-    private String uploadDir = "C:\\Users\\yamil.melian\\IdeaProjects";
+    private String uploadDir = "C:\\Users\\yamil.melian\\IdeaProjects\\archivos";
 
     @Autowired
     public FicheroServiceImpl(FicheroRepository ficheroRepository) {
@@ -34,13 +35,20 @@ public class FicheroServiceImpl implements FicheroService {
     }
 
     @Override
-    public Fichero storeFile(MultipartFile file, String categoria, String fileType) throws IOException {
-
-        if (!file.getOriginalFilename().endsWith(fileType)) {
+    public Fichero storeFile(MultipartFile file, String categoria, String extArchivo) throws IOException {
+        //Checkear si el archivo acaba con la extension de archivo pasada
+        if (!file.getOriginalFilename().endsWith(extArchivo)) {
             throw new IllegalArgumentException("Tipo de archivo incorrecto.");
         }
 
-        Path copyLocation = Paths.get(uploadDir + file.getOriginalFilename());
+        // Crear carpeta destino si no existe
+        File carpetaArchivos = new File(uploadDir);
+        if (!carpetaArchivos.exists()){
+            carpetaArchivos.mkdir();
+        }
+
+        // Hacemos el path a la carpeta destino y reemplazamos en caso de que exista
+        Path copyLocation = Paths.get(carpetaArchivos.getAbsolutePath() + File.separator + file.getOriginalFilename());
         Files.copy(file.getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
 
         Fichero fichero = new Fichero();
@@ -55,13 +63,16 @@ public class FicheroServiceImpl implements FicheroService {
 
     @Override
     public Resource loadFileAsResource(String fileName) throws Exception {
-        Path fileLocation = Paths.get(uploadDir + fileName);
+
+        // Aquí nos aseguramos de que estamos creando el Path con la ruta absoluta al directorio
+        Path fileLocation = Paths.get(new File(uploadDir).getAbsolutePath()).resolve(fileName).normalize();
         Resource resource = new UrlResource(fileLocation.toUri());
 
-        if (resource.exists()) {
+        if(resource.exists()) {
             return resource;
         } else {
-            throw new Exception("Archivo no encontrado.");
+            throw new Exception("Archivo no encontrado: " + fileName);
         }
     }
+
 }

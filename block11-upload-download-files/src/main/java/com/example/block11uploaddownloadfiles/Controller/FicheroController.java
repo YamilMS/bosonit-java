@@ -28,8 +28,8 @@ public class FicheroController {
 
     @PostMapping("/upload/{tipo}")
     public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file,
-                                        @PathVariable String tipo,
-                                        @RequestParam String categoria) throws IOException {
+                                        @RequestParam String categoria,
+                                        @PathVariable String tipo) throws IOException {
         Fichero fichero = ficheroService.storeFile(file, categoria, tipo);
         return ResponseEntity.ok(fichero);
     }

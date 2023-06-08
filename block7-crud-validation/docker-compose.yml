@@ -17,7 +17,7 @@ services:
     environment:
       - DATABASE_USER=postgres
       - DATABASE_PASSWORD=contrasena
-      - DATABASE_URL=jdbc:postgresql://postgres_test:5432/test
+      - DATABASE_URL=jdbc:postgresql://postgres_test_compose:5432/test
     image: ejercicio10_c
     build: .
     ports:
