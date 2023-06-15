@@ -4,10 +4,14 @@ import com.example.block7crudvalidation.application.PersonaService;
 import com.example.block7crudvalidation.controller.DTO.input.PersonaInputDto;
 import com.example.block7crudvalidation.controller.DTO.output.PersonaOutputDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -54,4 +58,30 @@ public class PersonaController {
         List<PersonaOutputDto> persons = personaService.getAllPersons();
         return new ResponseEntity<>(persons, HttpStatus.OK);
     }
+
+    //PARTE DE CRITERIABUILDER
+    @GetMapping("/criteria_search")
+    public List<PersonaOutputDto> search(@RequestParam(required = false) String usuario,
+                                         @RequestParam(required = false) String name,
+                                         @RequestParam(required = false) String surname,
+                                         @RequestParam(required = false) Date fechaInicio,
+                                         @RequestParam(required = false) Date fechaFin,
+                                         @RequestParam(required = false) String sortField,
+                                         @RequestParam(required = false) Integer page,
+                                         @RequestParam(required = false) Integer size) throws Exception {
+
+        // Si no se especifica, por defecto el tamaño de la página será 10
+        int pageSize = (size != null) ? size : 10;
+
+        // Si no se especifica, por defecto se usará la primera página (0)
+        int pageNumber = (page != null) ? page : 0;
+
+        // Si no se especifica, por defecto se ordenará por 'usuario'
+        String sortBy = (sortField != null) ? sortField : "usuario";
+
+        PageRequest pageable = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
+
+        return personaService.searchByCriteria(usuario, name, surname, fechaInicio, fechaFin, sortField, pageable);
+    }
+
 }
