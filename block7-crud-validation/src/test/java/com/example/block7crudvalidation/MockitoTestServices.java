@@ -1,22 +1,24 @@
 package com.example.block7crudvalidation;
 
 import com.example.block7crudvalidation.application.EntityMapper;
-import com.example.block7crudvalidation.application.PersonaService;
 import com.example.block7crudvalidation.application.PersonaServiceImpl;
 import com.example.block7crudvalidation.controller.DTO.output.PersonaOutputDto;
 import com.example.block7crudvalidation.domain.Persona;
 import com.example.block7crudvalidation.repository.PersonaRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Optional;
 
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MockitoTestServices {
 
     @InjectMocks
@@ -63,4 +65,6 @@ public class MockitoTestServices {
         assertNotNull(result);
         assertEquals("username", result.getUsuario());
     }
+
+
 }
