@@ -1,6 +1,5 @@
 package com.example.block7crudvalidation.controller.DTO.input;
 
-import com.example.block7crudvalidation.domain.Persona;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

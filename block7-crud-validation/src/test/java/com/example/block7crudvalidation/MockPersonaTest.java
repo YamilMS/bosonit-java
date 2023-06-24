@@ -3,23 +3,20 @@ package com.example.block7crudvalidation;
 import com.example.block7crudvalidation.application.EntityMapper;
 import com.example.block7crudvalidation.application.PersonaService;
 import com.example.block7crudvalidation.application.PersonaServiceImpl;
-import com.example.block7crudvalidation.application.ProfessorService;
 import com.example.block7crudvalidation.controller.DTO.input.PersonaInputDto;
-import com.example.block7crudvalidation.controller.DTO.input.ProfessorInputDTO;
 import com.example.block7crudvalidation.controller.DTO.output.PersonaOutputDto;
-import com.example.block7crudvalidation.controller.DTO.output.ProfessorOutputDTO;
 import com.example.block7crudvalidation.domain.Persona;
-import com.example.block7crudvalidation.domain.Professor;
 import com.example.block7crudvalidation.repository.PersonaRepository;
-import com.example.block7crudvalidation.repository.ProfessorRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.*;
 
@@ -39,12 +36,6 @@ public class MockPersonaTest {
 
     @MockBean
     private PersonaService personaService;
-
-    @MockBean
-    private ProfessorRepository professorRepository;
-
-    @Autowired
-    private ProfessorService professorService;
 
     @BeforeEach
     public void init() {
@@ -283,6 +274,19 @@ public class MockPersonaTest {
        assertEquals(outputDto.getUsuario(), result.getUsuario());
     }
 
+    @Test
+    public void getAllPersonsTest() {
+        // Given
+        List<Persona> personas = new ArrayList<>();
+        personas.add(new Persona(1, "user1", "pass1", "name1", "surname1", "company_email1", "personal_email1", "city1", true, new Date(), "image_url1", null));
+        personas.add(new Persona(2, "user2", "pass2", "name2", "surname2", "company_email2", "personal_email2", "city2", true, new Date(), "image_url2", null));
 
+        when(personaRepository.findAll()).thenReturn(personas);
 
+        // When
+        List<PersonaOutputDto> result = personaService.getAllPersons();
+
+        // Then
+        assertEquals(2, result.size());
+    }
 }
